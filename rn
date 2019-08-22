@@ -1,0 +1,24 @@
+#!/bin/bash
+function rn() {
+    # Get the final argument and check whether it's asking to run a command
+    if [[ "$1" =~ ^\+ ]]
+    then
+        rn_command_to_run=`echo "$1" | sed 's/^.//'`
+        shift
+    fi
+
+    rn_file_name=`date +"%Y-%m-%d-%H%M"`
+    
+    if [[ "$@" != "" ]]
+    then
+        rn_file_name="$rn_file_name-$(echo "$@" | sed 's/ /\-/g')"
+    fi
+
+    rn_path="$HOME/.rn/$rn_file_name"
+    mkdir -p "$HOME/.rn"
+    mkdir $rn_path
+    cd $rn_path
+    echo "Created: $rn_path"
+    echo "Running: $rn_command_to_run ."
+    `$rn_command_to_run .`
+}
