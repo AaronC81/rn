@@ -2,7 +2,7 @@
 function rn() {
     # Get the first argument and check whether it's asking to run a command
     first_arg=$1
-    if [[ "${first_arg::1}" == '+' ]]
+    if [[ "${first_arg:0:1}" == '+' ]]
     then
         rn_command_to_run=`echo "$1" | sed 's/^.//'`
         shift
